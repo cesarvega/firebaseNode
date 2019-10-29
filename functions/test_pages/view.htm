@@ -1,0 +1,35 @@
+<p id='message'>Loading...</p>
+<table style='width : 100%'>
+	<tr>
+		<th>Doc ID</th>
+		<th>Name</th>
+		<th>Desc</th>
+		<th>Price</th>
+		<th>Sale Price</th>
+		<th>Date Created</th>
+	</tr>
+	<tbody id='tbody'>
+	
+	</tbody>
+</table>
+
+<style>
+	table {
+		border : 2px solid;
+	}
+	td, th {
+		border : 1px solid;
+	}
+</style>
+
+<script>
+	let tbody = document.getElementById("tbody");
+	fetch("https://us-central1-bsgur-fdb7a.cloudfunctions.net/app").then(data => {
+		data.json().then(data => {
+			document.getElementById("message").style.display = "none";
+			for (doc in data) {
+				tbody.innerHTML = "<tr><td>"+doc+"</td><td>"+data[doc].name+"</td><td>"+data[doc].description+"</td><td>"+data[doc].price+"</td><td>"+data[doc].salePrice+"</td><td>"+data[doc].dateCreated+"</td></tr>" + tbody.innerHTML;
+			}
+		})
+	})
+</script>
